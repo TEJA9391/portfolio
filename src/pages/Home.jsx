@@ -9,7 +9,7 @@ export default function Home() {
 
     const validateField = (name, value) => {
         let error = ''
-        
+
         if (name === 'name') {
             if (!value.trim()) {
                 error = 'Name is required'
@@ -19,7 +19,7 @@ export default function Home() {
                 error = 'Name can only contain letters and spaces'
             }
         }
-        
+
         if (name === 'email') {
             if (!value.trim()) {
                 error = 'Email is required'
@@ -27,7 +27,7 @@ export default function Home() {
                 error = 'Please enter a valid email address'
             }
         }
-        
+
         if (name === 'message') {
             if (!value.trim()) {
                 error = 'Message is required'
@@ -37,14 +37,14 @@ export default function Home() {
                 error = 'Message cannot exceed 1000 characters'
             }
         }
-        
+
         return error
     }
 
     const handleChange = (e) => {
         const { name, value } = e.target
         setFormData(prev => ({ ...prev, [name]: value }))
-        
+
         if (touched[name]) {
             const error = validateField(name, value)
             setErrors(prev => ({ ...prev, [name]: error }))
@@ -60,14 +60,14 @@ export default function Home() {
 
     const handleSubmit = (e) => {
         e.preventDefault()
-        
+
         // Validate all fields
         const newErrors = {}
         Object.keys(formData).forEach(key => {
             const error = validateField(key, formData[key])
             if (error) newErrors[key] = error
         })
-        
+
         if (Object.keys(newErrors).length === 0) {
             setSubmitted(true)
             setFormData({ name: '', email: '', message: '' })
@@ -92,9 +92,9 @@ export default function Home() {
                 <div className="hero-inner">
                     <div className="hero-left fade-in">
                         <div className="headline-wrap">
-                            <h1 className="headline">I am Tej Tej</h1>
+                            <h1 className="headline">I am Teja</h1>
                         </div>
-                        <p style={{ margin: '12px 0 0', color: 'var(--muted)', fontWeight: 300 }}>B.Tech AIML Student & Developer</p>
+                        <p style={{ margin: '12px 0 0', color: 'var(--muted)', fontWeight: 400 }}>B.Tech AIML Student & Developer</p>
                     </div>
 
                     <div className="photo-column fade-in delay">
@@ -207,7 +207,7 @@ export default function Home() {
                                 ✓ Message sent successfully! I'll get back to you soon.
                             </div>
                         )}
-                        
+
                         <form className="contact-grid" onSubmit={handleSubmit}>
                             <div className="form-control">
                                 <label htmlFor="name">
