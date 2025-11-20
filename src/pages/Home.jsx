@@ -10,6 +10,7 @@ export default function Home() {
     const [isContactOpen, setIsContactOpen] = useState(false)
     const [isAnimating, setIsAnimating] = useState(false)
     const [flyStyle, setFlyStyle] = useState(null)
+    const [expandedProject, setExpandedProject] = useState(null)
     const contactBtnRef = useRef(null)
 
     const socialLinks = [
@@ -78,6 +79,40 @@ export default function Home() {
             )
         }
     ]
+
+    const projects = [
+        {
+            id: 1,
+            title: 'Student Aware Study Assistance',
+            shortDesc: 'AI-powered study platform that tracks student engagement and provides personalized learning recommendations using computer vision and ML algorithms.',
+            fullDesc: 'An intelligent study assistance platform that uses computer vision and machine learning to monitor student engagement in real-time. The system analyzes facial expressions, posture, and attention levels to provide personalized recommendations. It tracks study patterns, identifies weak areas, and suggests optimal study schedules for maximum retention.',
+            tags: ['Python', 'TensorFlow', 'OpenCV', 'React'],
+            features: ['Real-time engagement tracking', 'AI-powered study recommendations', 'Personalized learning paths', 'Progress analytics dashboard'],
+            link: '#'
+        },
+        {
+            id: 2,
+            title: 'FixHub',
+            shortDesc: 'Community-driven platform connecting users with local service providers and repair professionals. Full-stack web application with real-time messaging.',
+            fullDesc: 'A marketplace platform connecting homeowners with local service professionals for repairs and maintenance. Features include real-time messaging, service provider ratings, booking management, and payment processing. Built with a robust backend and responsive React frontend.',
+            tags: ['React', 'Node.js', 'MongoDB', 'Firebase'],
+            features: ['Real-time messaging system', 'Provider ratings & reviews', 'Secure payment integration', 'Service booking management', 'GPS-based provider matching'],
+            link: '#'
+        },
+        {
+            id: 3,
+            title: 'Sentiment Analysis Web App',
+            shortDesc: 'Web-based sentiment analysis tool using NLP to classify text emotions. Built with Flask backend and React frontend with real-time predictions.',
+            fullDesc: 'A sophisticated NLP application that analyzes text sentiment in real-time. Uses pre-trained models to classify emotions and provide detailed sentiment scores. Features include batch processing, visualization of results, and API integration capabilities for external applications.',
+            tags: ['Python', 'NLP', 'Flask', 'React'],
+            features: ['Real-time sentiment analysis', 'Multi-language support', 'Sentiment visualization charts', 'Batch processing capability', 'REST API for integration'],
+            link: '#'
+        }
+    ]
+
+    const toggleProject = (id) => {
+        setExpandedProject(expandedProject === id ? null : id)
+    }
 
     const validateField = (name, value) => {
         let error = ''
@@ -311,35 +346,41 @@ export default function Home() {
                     </div>
 
                     <div className="projects-grid">
-                        <div className="proj">
-                            <h4>Student Aware Study Assistance</h4>
-                            <p style={{ margin: '6px 0 0', color: 'var(--muted)' }}>AI-powered study platform that tracks student engagement and provides personalized learning recommendations using computer vision and ML algorithms.</p>
-                            <div className="tags"><span className="tag">Python</span><span className="tag">TensorFlow</span><span className="tag">OpenCV</span><span className="tag">React</span></div>
-                            <div className="buttons">
-                                <a className="btn btn-ghost" href="#" target="_blank">GitHub</a>
-                                <a className="btn btn-primary" href="#" target="_blank">Learn more</a>
+                        {projects.map((project) => (
+                            <div key={project.id} className={`proj ${expandedProject === project.id ? 'expanded' : ''}`}>
+                                <h4>{project.title}</h4>
+                                <p style={{ margin: '6px 0 0', color: 'var(--muted)' }}>{project.shortDesc}</p>
+                                
+                                {expandedProject === project.id && (
+                                    <div style={{ marginTop: 12, paddingTop: 12, borderTop: '1px solid rgba(0,0,0,0.1)' }}>
+                                        <p style={{ margin: '0 0 8px 0', color: 'var(--text)', fontSize: 14 }}>{project.fullDesc}</p>
+                                        <p style={{ margin: '8px 0 6px 0', color: 'var(--muted)', fontSize: 12, fontWeight: 600, textTransform: 'uppercase', letterSpacing: '0.5px' }}>Key Features</p>
+                                        <ul style={{ margin: '0 0 12px 0', paddingLeft: 16, color: 'var(--muted)', fontSize: 13 }}>
+                                            {project.features.map((feature, idx) => (
+                                                <li key={idx} style={{ marginBottom: 4 }}>{feature}</li>
+                                            ))}
+                                        </ul>
+                                    </div>
+                                )}
+                                
+                                <div className="tags" style={{ marginTop: expandedProject === project.id ? 12 : 8 }}>
+                                    {project.tags.map((tag, idx) => (
+                                        <span key={idx} className="tag">{tag}</span>
+                                    ))}
+                                </div>
+                                
+                                <div className="buttons" style={{ marginTop: 12 }}>
+                                    <a className="btn btn-ghost" href="#" target="_blank">GitHub</a>
+                                    <button 
+                                        className="btn btn-primary"
+                                        onClick={() => toggleProject(project.id)}
+                                        style={{ cursor: 'pointer' }}
+                                    >
+                                        {expandedProject === project.id ? 'Show less' : 'Learn more'}
+                                    </button>
+                                </div>
                             </div>
-                        </div>
-
-                        <div className="proj">
-                            <h4>FixHub</h4>
-                            <p style={{ margin: '6px 0 0', color: 'var(--muted)' }}>Community-driven platform connecting users with local service providers and repair professionals. Full-stack web application with real-time messaging.</p>
-                            <div className="tags"><span className="tag">React</span><span className="tag">Node.js</span><span className="tag">MongoDB</span><span className="tag">Firebase</span></div>
-                            <div className="buttons">
-                                <a className="btn btn-ghost" href="#" target="_blank">GitHub</a>
-                                <a className="btn btn-primary" href="#" target="_blank">Live demo</a>
-                            </div>
-                        </div>
-
-                        <div className="proj">
-                            <h4>Sentiment Analysis Web App</h4>
-                            <p style={{ margin: '6px 0 0', color: 'var(--muted)' }}>Web-based sentiment analysis tool using NLP to classify text emotions. Built with Flask backend and React frontend with real-time predictions.</p>
-                            <div className="tags"><span className="tag">Python</span><span className="tag">NLP</span><span className="tag">Flask</span><span className="tag">React</span></div>
-                            <div className="buttons">
-                                <a className="btn btn-ghost" href="#" target="_blank">GitHub</a>
-                                <a className="btn btn-primary" href="#" target="_blank">Try it</a>
-                            </div>
-                        </div>
+                        ))}
                     </div>
                 </section>
 

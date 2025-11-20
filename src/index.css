@@ -505,7 +505,7 @@ section {
     padding: 16px;
     border-radius: 10px;
     border: 1px solid rgba(0, 0, 0, 0.04);
-    transition: transform .22s ease, box-shadow .22s ease, background-color 0.3s ease, border-color 0.3s ease;
+    transition: all 0.35s cubic-bezier(0.22, 1, 0.36, 1);
     background: linear-gradient(180deg, rgba(255, 255, 255, 1), rgba(255, 255, 255, 0.98))
 }
 
@@ -522,6 +522,23 @@ section {
 [data-theme="dark"] .proj:hover {
     box-shadow: 0 12px 30px rgba(59, 130, 246, 0.15);
     border-color: rgba(59, 130, 246, 0.4);
+}
+
+.proj.expanded {
+    grid-column: span 3;
+    transform: none;
+}
+
+@media (max-width: 1024px) {
+    .proj.expanded {
+        grid-column: span 2;
+    }
+}
+
+@media (max-width: 768px) {
+    .proj.expanded {
+        grid-column: span 1;
+    }
 }
 
 .tags {
