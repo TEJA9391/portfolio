@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import { NavLink } from 'react-router-dom'
+
 import ContactPopup from "./ContactPopup";
 
 
@@ -7,6 +8,35 @@ export default function Navbar({ isDarkMode, setIsDarkMode }) {
     const [isAnimating, setIsAnimating] = useState(false)
     const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false)
     const [isContactOpen, setIsContactOpen] = useState(false)
+    const [isScrolled, setIsScrolled] = useState(false)
+
+    useEffect(() => {
+        const handleScroll = () => {
+            if (window.scrollY > 24) {
+                setIsScrolled(true)
+            } else {
+                setIsScrolled(false)
+            }
+        }
+
+        const scrollListener = () => {
+            requestAnimationFrame(handleScroll)
+        }
+
+        window.addEventListener('scroll', scrollListener)
+        return () => window.removeEventListener('scroll', scrollListener)
+    }, [])
+
+    useEffect(() => {
+        const header = document.querySelector('header')
+        if (header) {
+            if (isScrolled) {
+                header.classList.add('scrolled')
+            } else {
+                header.classList.remove('scrolled')
+            }
+        }
+    }, [isScrolled])
 
     const toggleTheme = () => {
         setIsAnimating(true)
@@ -63,16 +93,6 @@ export default function Navbar({ isDarkMode, setIsDarkMode }) {
                         </li>
                         <li>
                             <button
-                                className="contact-btn"
-                                onClick={toggleContact}
-                                title="Contact me"
-                                aria-label="Open contact options"
-                            >
-                                Contact
-                            </button>
-                        </li>
-                        <li>
-                            <button
                                 className={`theme-toggle ${isAnimating ? 'animate' : ''}`}
                                 onClick={toggleTheme}
                                 title={isDarkMode ? 'Light mode' : 'Dark mode'}
@@ -104,4 +124,3 @@ export default function Navbar({ isDarkMode, setIsDarkMode }) {
         </header>
     )
 }
-

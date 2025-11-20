@@ -7,6 +7,7 @@ import Home from './pages/Home'
 import AboutPage from './pages/About'
 import Blog from './pages/Blog'
 import Speaking from './pages/Speaking'
+import Contact from './pages/Contact'
 import StudentAware from "./pages/StudentAware";
 import './App.css'
 import './index.css'
@@ -35,6 +36,7 @@ function AppContent({ isDarkMode, setIsDarkMode }) {
                 <Route path="/about" element={<AboutPage />} />
                 <Route path="/blog" element={<Blog />} />
                 <Route path="/speaking" element={<Speaking />} />
+                <Route path="/contact" element={<Contact />} />
 
                 {/* ✅ ADD THIS ROUTE */}
                 <Route path="/student-aware" element={<StudentAware />} />
